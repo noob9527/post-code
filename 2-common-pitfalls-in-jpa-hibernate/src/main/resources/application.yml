@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/post-3?zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        enable_lazy_load_no_trans: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      javax.persistence.validation.mode: none
+    show-sql: false
+
+logging:
+  level:
+    org.hibernate:
+      type.descriptor.sql.BasicBinder: TRACE
+      SQL: INFO
+    org.springframework.orm.jpa: DEBUG

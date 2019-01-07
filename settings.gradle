@@ -1,0 +1,5 @@
+rootProject.name = 'post-code'
+
+include '1-common-pitfalls-of-declarative-transaction-management-in-spring'
+include '2-common-pitfalls-in-jpa-hibernate'
+include '3-an-better-way-to-log-jdbc-statements'

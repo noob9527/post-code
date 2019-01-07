@@ -1,0 +1,4 @@
+rootProject.name = '2-common-pitfalls-in-jpa-hibernate'
+
+//include ":jpa-entity-inspector"
+//project(":jpa-entity-inspector").projectDir = file("/home/xy/WorkSpace/code/personal/kotlin/jpa-entity-inspector")

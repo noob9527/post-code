@@ -1,0 +1,83 @@
+buildscript {
+    ext {
+        kotlinVersion = '1.2.51'
+        springBootVersion = '2.1.1.RELEASE'
+
+        jacksonKotlinModuleVersion = '2.9.0'
+
+        p6spyVersion = '3.8.1'
+        datasourceProxyVersion = '1.4.9'
+
+        junitPlatformVersion = '1.0.2'
+        junitJupiterVersion = '5.0.2'
+    }
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
+        classpath("org.junit.platform:junit-platform-gradle-plugin:$junitPlatformVersion")
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'kotlin-jpa'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+group = 'cn.staynoob'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonKotlinModuleVersion}")
+
+    compile("p6spy:p6spy:${p6spyVersion}")
+    compile("net.ttddyy:datasource-proxy:${datasourceProxyVersion}")
+
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+
+    runtime('mysql:mysql-connector-java')
+    testRuntime('com.h2database:h2')
+
+    testCompile("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "junit"
+    }
+    // junit5
+    testCompile("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testCompile('com.github.sbrannen:spring-test-junit5:1.0.0')
+    // To avoid compiler warnings about @API annotations in JUnit code
+    testCompileOnly('org.apiguardian:apiguardian-api:1.0.0')
+}
